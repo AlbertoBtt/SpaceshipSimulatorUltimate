@@ -1,2 +1,6 @@
 C:\Users\raulf\OneDrive\Escritorio\UJA\ERASMUS\Computer Graphics\grk-cw4\Debug\grk-cw4.exe
 C:\Users\raulf\OneDrive\Escritorio\UJA\ERASMUS\Computer Graphics\grk-cw4\Debug\grk-cw4.pdb
+C:\Users\raulf\OneDrive\Documentos\GitHub\ComputerGraphics\Debug\grk-cw4.exe
+C:\Users\raulf\OneDrive\Documentos\GitHub\ComputerGraphics\Debug\grk-cw4.pdb
+C:\Users\AdelB\Documents\GitHub\ComputerGraphics\Debug\grk-cw4.exe
+C:\Users\AdelB\Documents\GitHub\ComputerGraphics\Debug\grk-cw4.pdb
