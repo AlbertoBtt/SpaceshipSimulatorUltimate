@@ -1,3 +1,9 @@
-﻿  main_4_1.cpp
+﻿  Camera.cpp
+  main_4_1.cpp
+  picopng.cpp
+  Render_Utils.cpp
+  Shader_Loader.cpp
+  Texture.cpp
+  Generando código...
 Camera.obj : warning LNK4075: se omite '/EDITANDCONTINUE' debido a la especificación '/INCREMENTAL:NO'
-  grk-cw4.vcxproj -> C:\Users\raulf\OneDrive\Documentos\GitHub\ComputerGraphics\Debug\grk-cw4.exe
+  grk-cw4.vcxproj -> C:\Users\AdelB\Desktop\ComputerGraphics\Debug\grk-cw4.exe
