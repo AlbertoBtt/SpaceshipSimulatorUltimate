@@ -140,8 +140,6 @@ void renderScene()
 
 
 
-
-
 	//first planet
 	glm::mat4 firstboxrotation = glm::rotate((time / 34.f) * 2 * 3.14f, glm::vec3(0,-2, 0));
 	glm::mat4 firstboxtranslation = glm::translate(glm::vec3(2, 0, -2));
