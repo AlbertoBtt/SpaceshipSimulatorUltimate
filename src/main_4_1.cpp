@@ -23,6 +23,7 @@ GLuint textureMercury;
 //glm::vec3 colorTexture = glm::vec3(1, 0, 0);
 obj::Model shipModel;
 obj::Model sphereModel;
+obj::Model naveTocha;
 Core::RenderContext shipContext;
 Core::RenderContext sphereContext;
 glm::vec3 lightDir = glm::vec3(1, 0, 0);
@@ -132,9 +133,14 @@ void renderScene()
 	float time = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
 
 	// Macierz statku "przyczepia" go do kamery. Warto przeanalizowac te linijke i zrozumiec jak to dziala.
-	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f + glm::vec3(0, -0.25f, 0)) * glm::rotate(-cameraAngle + glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f + glm::vec3(0.f, -0.25f, 0)) * glm::rotate(-cameraAngle + glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.001f));
 
 	drawObject(shipContext, shipModelMatrix, glm::vec3(0.6f), program);
+
+
+
+
+
 
 	//first planet
 	glm::mat4 firstboxrotation = glm::rotate((time / 34.f) * 2 * 3.14f, glm::vec3(0,-2, 0));
@@ -193,7 +199,7 @@ void init()
 	programTex = shaderLoader.CreateProgram("shaders/shader_4_tex.vert", "shaders/shader_4_tex.frag");
 	programProcTex = shaderLoader.CreateProgram("shaders/shader_proc_tex.vert", "shaders/shader_proc_tex.frag");
 	sphereModel = obj::loadModelFromFile("models/sphere.obj");
-	shipModel = obj::loadModelFromFile("models/spaceship.obj");
+	shipModel = obj::loadModelFromFile("models/nave_orion.obj");
 	shipContext.initFromOBJ(shipModel);
 	sphereContext.initFromOBJ(sphereModel);
 	texture = Core::LoadTexture("textures/earth2.png");
