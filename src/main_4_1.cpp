@@ -23,9 +23,12 @@ GLuint textureMercury;
 //glm::vec3 colorTexture = glm::vec3(1, 0, 0);
 obj::Model shipModel;
 obj::Model sphereModel;
-obj::Model naveTocha;
+obj::Model ring;
 Core::RenderContext shipContext;
 Core::RenderContext sphereContext;
+Core::RenderContext ringContext;
+
+
 glm::vec3 lightDir = glm::vec3(1, 0, 0);
 glm::vec3 lightColor(0.33f, 0.21f, 0.06f);
 float cameraAngle = 0;
@@ -183,7 +186,10 @@ void renderScene()
 	// Sun
 	drawObject(sphereContext, glm::translate(glm::vec3(0,0,0)), glm::vec3(1.0f, 0.8f, 0.f),programSun); 
 
+	//Rings
+	glm::mat4 ringtransformation = glm::translate(glm::vec3(2, 0, -2)) * glm::scale(glm::vec3(0.4, 0.4, 0.4)) * glm::rotate(1.5708f,glm::vec3(0.f,0.f,1.f));
 
+	drawObject(ringContext, ringtransformation, glm::vec3(0,1,1), program);
 
 	glutSwapBuffers();
 }
@@ -198,11 +204,13 @@ void init()
 	programProcTex = shaderLoader.CreateProgram("shaders/shader_proc_tex.vert", "shaders/shader_proc_tex.frag");
 	sphereModel = obj::loadModelFromFile("models/sphere.obj");
 	shipModel = obj::loadModelFromFile("models/nave_orion.obj");
+	ring = obj::loadModelFromFile("models/anillo.obj");
 	shipContext.initFromOBJ(shipModel);
 	sphereContext.initFromOBJ(sphereModel);
+	ringContext.initFromOBJ(ring);
 	texture = Core::LoadTexture("textures/earth2.png");
 	textureMercury = Core::LoadTexture("textures/grid.png");
-
+	
 }
 
 void shutdown()

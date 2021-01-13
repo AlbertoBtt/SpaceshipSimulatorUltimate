@@ -40,6 +40,7 @@ void Core::RenderContext::initFromOBJ(obj::Model& model)
 
     glBufferSubData(GL_ARRAY_BUFFER, vertexDataBufferSize, vertexNormalBufferSize, &model.normal[0]);
 
+   
     glBufferSubData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize, vertexTexBufferSize, &model.texCoord[0]);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)(0));
