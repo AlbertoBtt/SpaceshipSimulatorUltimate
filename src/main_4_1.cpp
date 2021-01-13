@@ -12,6 +12,9 @@
 
 #include "Box.cpp"
 
+
+
+
 GLuint program;
 Core::Shader_Loader shaderLoader;
 GLuint programSun;
@@ -204,7 +207,7 @@ void init()
 	programProcTex = shaderLoader.CreateProgram("shaders/shader_proc_tex.vert", "shaders/shader_proc_tex.frag");
 	sphereModel = obj::loadModelFromFile("models/sphere.obj");
 	shipModel = obj::loadModelFromFile("models/nave_orion.obj");
-	ring = obj::loadModelFromFile("models/anillo.obj");
+	ring = obj::loadModelFromFile("models/cilinder.obj");
 	shipContext.initFromOBJ(shipModel);
 	sphereContext.initFromOBJ(sphereModel);
 	ringContext.initFromOBJ(ring);
