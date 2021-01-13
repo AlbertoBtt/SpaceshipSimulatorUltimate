@@ -14,6 +14,8 @@
 
 
 
+static const int NUM_RINGS = 8;
+glm::vec3 ringsPositions[NUM_RINGS];
 
 GLuint program;
 Core::Shader_Loader shaderLoader;
@@ -190,9 +192,14 @@ void renderScene()
 	drawObject(sphereContext, glm::translate(glm::vec3(0,0,0)), glm::vec3(1.0f, 0.8f, 0.f),programSun); 
 
 	//Rings
-	glm::mat4 ringtransformation = glm::translate(glm::vec3(2, 0, -2)) * glm::scale(glm::vec3(0.4, 0.4, 0.4)) * glm::rotate(1.5708f,glm::vec3(0.f,0.f,1.f));
+	glm::mat4 ringtransformation =  glm::scale(glm::vec3(0.4, 0.4, 0.4)) * glm::rotate(1.5708f,glm::vec3(0.f,0.f,1.f));
 
 	drawObject(ringContext, ringtransformation, glm::vec3(0,1,1), program);
+
+	for (int i = 0; i < NUM_RINGS; i++) {
+		drawObject(ringContext, glm::translate(ringsPositions[i])*ringtransformation, glm::vec3(0, 1, 1),program);
+
+	}
 
 	glutSwapBuffers();
 }
@@ -213,6 +220,13 @@ void init()
 	ringContext.initFromOBJ(ring);
 	texture = Core::LoadTexture("textures/earth2.png");
 	textureMercury = Core::LoadTexture("textures/grid.png");
+
+	for (int i = 0; i < NUM_RINGS; i++)
+	{
+		
+		ringsPositions[i] = glm::ballRand(10.0);
+		
+	}
 	
 }
 
