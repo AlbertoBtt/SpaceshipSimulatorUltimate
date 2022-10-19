@@ -1,0 +1,14 @@
+﻿  Camera.cpp
+  Render_Utils.cpp
+  Shader_Loader.cpp
+  Texture.cpp
+  main.cpp
+C:\Users\AdelB\Desktop\SpaceShip Ultimate\src\main.cpp(129,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\AdelB\Desktop\SpaceShip Ultimate\src\main.cpp(138,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\AdelB\Desktop\SpaceShip Ultimate\src\main.cpp(171,10): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\AdelB\Desktop\SpaceShip Ultimate\src\main.cpp(172,10): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\AdelB\Desktop\SpaceShip Ultimate\src\main.cpp(653,8): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  picopng.cpp
+  Generando código...
+Camera.obj : warning LNK4075: se omite '/EDITANDCONTINUE' debido a la especificación '/INCREMENTAL:NO'
+  SpaceshipUltimate.vcxproj -> C:\Users\AdelB\Desktop\SpaceShip Ultimate\Debug\SpaceshipUltimate.exe

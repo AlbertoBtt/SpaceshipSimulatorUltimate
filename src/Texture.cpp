@@ -27,7 +27,7 @@ GLuint Core::LoadTexture( const char * filepath )
 	decodePNG(decoded, w, h, (unsigned char*)&buffer[0], buffer.size(), true);
 	
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, &decoded[0]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, &decoded[0]);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	return id;

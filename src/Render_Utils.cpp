@@ -14,6 +14,10 @@ void Core::RenderContext::initFromOBJ(obj::Model& model)
     unsigned int vertexDataBufferSize = sizeof(float) * model.vertex.size();
     unsigned int vertexNormalBufferSize = sizeof(float) * model.normal.size();
     unsigned int vertexTexBufferSize = sizeof(float) * model.texCoord.size();
+    unsigned int vertexTangentSize = sizeof(float) * model.tangent.size();
+    unsigned int vertexBitangentSize = sizeof(float) * model.bitangent.size();
+
+   
 
     size = model.faces["default"].size();
     unsigned int vertexElementBufferSize = sizeof(unsigned short) * size;
@@ -33,18 +37,29 @@ void Core::RenderContext::initFromOBJ(obj::Model& model)
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
+    glEnableVertexAttribArray(3);
+    glEnableVertexAttribArray(4);
     
-    glBufferData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize + vertexTexBufferSize, NULL, GL_STATIC_DRAW);
+    
+    glBufferData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize + vertexTexBufferSize + vertexTangentSize + vertexBitangentSize, NULL, GL_STATIC_DRAW);
 
     glBufferSubData(GL_ARRAY_BUFFER, 0, vertexDataBufferSize, &model.vertex[0]);
 
     glBufferSubData(GL_ARRAY_BUFFER, vertexDataBufferSize, vertexNormalBufferSize, &model.normal[0]);
 
+   
     glBufferSubData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize, vertexTexBufferSize, &model.texCoord[0]);
+
+    glBufferSubData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize +vertexTexBufferSize, vertexTangentSize, &model.tangent[0]);
+
+    glBufferSubData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize + vertexTexBufferSize + vertexTangentSize, vertexBitangentSize, &model.bitangent[0]);
+    
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)(0));
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)(vertexDataBufferSize));
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(vertexNormalBufferSize + vertexDataBufferSize));
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (void*)(vertexNormalBufferSize + vertexDataBufferSize + vertexTexBufferSize));
+    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, (void*)(vertexNormalBufferSize + vertexDataBufferSize + vertexTexBufferSize + vertexTangentSize));
         
     unsigned int lightCubeVAO;
     glGenVertexArrays(1, &lightCubeVAO);
@@ -53,7 +68,7 @@ void Core::RenderContext::initFromOBJ(obj::Model& model)
     // we only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need (it's already bound, but we do it again for educational purposes)
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 5, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 }
 

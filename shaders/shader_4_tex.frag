@@ -1,42 +1,68 @@
-#version 430 core
+#version 410 core
 
 uniform vec3 objectColor;
 uniform vec3 lightPos;
 uniform vec3 cameraPos;
-uniform vec3 lightDir;
 uniform sampler2D colorTexture;
+uniform sampler2D normalSampler;
+uniform bool lightDirUse;
 
 in vec3 interpNormal;
 in vec3 fragPos;
-in vec4 model;
 in vec2 Uv;
-
-
+in mat3 TBN;
+in vec3 lightDirTS;
+in vec3 viewDirTS;
+in mat3 TBN2;
+in vec3 lightDirTS2;
+in vec3 viewDirTS2;
 
 float ambientStrength = 0.15;
-uniform vec3 lightColor =vec3(0.33f, 0.21f, 0.06f);
+
+vec4 lightDir2(){
+	vec3 L = -lightDirTS2;
+	vec3 V = normalize(viewDirTS2);
+	vec3 N = texture2D(normalSampler, Uv).rgb;
+	N = normalize(N * 2.0 - 1.0);
+	vec3 R = reflect(-normalize(L), N);
+
+	float diffuse = max(0, dot(N, L));
+	
+	float specular_pow = 10;
+	float specular = pow(max(0, dot(R, V)), specular_pow);
+
+	vec3 color = texture2D(colorTexture, Uv).rgb;
+
+	vec3 lightColor = vec3(1);
+	vec3 shadedColor = color * diffuse + lightColor * specular;
+	
+	float ambient = 0.2;
+	return vec4(mix(color, shadedColor, 1.0 - ambient), 1.0);
+	
+}
+
 void main()
 {
+	vec3 L = -lightDirTS;
+	vec3 V = normalize(viewDirTS);
+	vec3 N = texture2D(normalSampler, Uv).rgb;
+	N = normalize(N * 2.0 - 1.0);
+	vec3 R = reflect(-normalize(L), N);
 
-vec3 ambient = lightColor * ambientStrength;
-
+	float diffuse = max(0, dot(N, L));
 	
-	 vec3 norm = normalize(interpNormal);
+	float specular_pow = 10;
+	float specular = pow(max(0, dot(R, V)), specular_pow);
 
-//vec3 lightDir = (fragPos - lightPos);
-//lightDir = max(lightDir, 0.0);
-	vec3 lightDir = normalize(lightDir);
+	vec3 color = texture2D(colorTexture, Uv).rgb;
 
-	float diff = dot(norm, -lightDir);
-	diff = max(diff, 0.0);
-
-	vec3 viewvector = normalize(cameraPos - fragPos);
-	vec3 reflectDir = reflect(-lightDir, norm); 
-	float spec = pow(max(dot(viewvector, reflectDir), 0.0),8);
-	vec4 textureColor = texture2D(colorTexture, Uv);
+	vec3 lightColor = vec3(1);
+	vec3 shadedColor = color * diffuse + lightColor * specular;
 	
+	float ambient = 0.2;
 	
-	vec3 final = (ambient + diff + vec3(1.0) * spec);
-	gl_FragColor = vec4(final,1.0)*textureColor;	
+	if(lightDirUse) gl_FragColor = vec4(mix(color, shadedColor, 1.0 - ambient), 1.0) + lightDir2();
+	else gl_FragColor = vec4(mix(color, shadedColor, 1.0 - ambient), 1.0);
+
 
 }

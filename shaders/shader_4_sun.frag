@@ -1,17 +1,24 @@
-#version 430 core
+#version 410 core
 
-uniform vec3 objectColor;
-uniform vec3 lightDir;
+in vec2 Uv;
 
-in vec3 interpNormal;
-
+uniform sampler2D colorTexture;
+uniform bool HDR;
+uniform float exposure;
 
 void main()
-{
-gl_FragColor = vec4(objectColor, 1.0);
-//vec3 norm = normalize(interpNormal);
-//float diff = dot(norm, -lightDir);
-	//diff = max(diff, 0.0);
-
-	//gl_FragColor = vec4(objectColor, 1.0) * diff;
+{             
+    const float gamma = 2.2;
+    vec3 hdrColor = texture(colorTexture, Uv).rgb;
+    if(HDR)
+    {
+        vec3 result = vec3(1.0) - exp(-hdrColor * exposure);     
+        result = pow(result, vec3(1.0 / gamma));
+        gl_FragColor = vec4(result, 1.0);
+    }
+    else
+    {
+        vec3 result = pow(hdrColor, vec3(1.0 / gamma));
+        gl_FragColor = vec4(result, 1.0);
+    }
 }
